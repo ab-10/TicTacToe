@@ -10,7 +10,7 @@ class Game:
         (self.board[0], self.board[1], self.board[2],
              self.board[3], self.board[4], self.board[5],
              self.board[6], self.board[7], self.board[8])
-    print "Enter [0-8]:"
+    print "Enter a number representing the square you want to select:"
     # loop through until the game was won or tied
     while not self.game_is_over(self.board) and not self.tie(self.board):
       self.get_human_spot()
@@ -24,14 +24,20 @@ class Game:
 
     print "Game over"
 
+
   def get_human_spot(self):
     spot = None
     while spot is None:
-      spot = int(raw_input())
-      if self.board[spot] != "X" and self.board[spot] != "O":
-        self.board[spot] = self.hum
-      else:
-        spot = None
+        spot = int(raw_input())
+        if (spot <= 8) and (spot >= 0):
+            if (self.board[spot] != "X") and (self.board[spot] != "O"):
+                self.board[spot] = self.hum
+            else:
+                print "Square has been selected before, select a valid square"
+                spot = None
+        else:
+            print "The square is not within the grid, select a square within the grid"
+            spot = None
 
   def eval_board(self):
     spot = None

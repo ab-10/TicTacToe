@@ -1,8 +1,8 @@
 class Game:
   def __init__(self):
     self.board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
-    self.player1 = "X" # 1st player's marker
-    self.player2 = "O" # 2nd player's marker
+    self.player1 = "\033[91mX\033[0m" # 1st player's marker
+    self.player2 = "\033[92mO\033[0m" # 2nd player's marker
 
   def start_game(self):
     # start by printing the board
@@ -30,7 +30,7 @@ class Game:
     while spot is None:
         spot = int(raw_input())
         if (spot <= 8) and (spot >= 0):
-            if (self.board[spot] != "X") and (self.board[spot] != "O"):
+            if (self.board[spot] != self.player1) and (self.board[spot] != self.player2):
                 self.board[spot] = self.player2
             else:
                 print "Square has been selected before, select a valid square"
@@ -47,13 +47,13 @@ class Game:
         self.board[spot] = self.player1
       else:
         spot = self.get_best_move(self.board, self.player1)
-        if self.board[spot] != "X" and self.board[spot] != "O":
+        if self.board[spot] != self.player1 and self.board[spot] != self.player2:
           self.board[spot] = self.player1
         else:
           spot = None
 
   def get_best_move(self, board, next_player, depth = 0, best_score = {}):
-    available_spaces = [s for s in board if s != "X" and s != "O"]
+    available_spaces = [s for s in board if (s != self.player1) and (s != self.player2)]
     best_move = None
 
     for avail in available_spaces:
@@ -77,8 +77,8 @@ class Game:
       return int(available_spaces[0])
 
   def three_in_a_row(self, *args):
-    return args[0] == args[1] == args[2] == "X" or \
-        args[0] == args[1] == args[2] == "O"
+    return args[0] == args[1] == args[2] == self.player1 or \
+        args[0] == args[1] == args[2] == self.player2
 
   def game_is_over(self, b):
     return self.three_in_a_row(b[0], b[1], b[2]) == 1 or \

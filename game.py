@@ -1,8 +1,8 @@
 class Game:
   def __init__(self):
     self.board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
-    self.com = "X" # the computer's marker
-    self.hum = "O" # the user's marker
+    self.player1 = "X" # 1st player's marker
+    self.player2 = "O" # 2nd player's marker
 
   def start_game(self):
     # start by printing the board
@@ -31,7 +31,7 @@ class Game:
         spot = int(raw_input())
         if (spot <= 8) and (spot >= 0):
             if (self.board[spot] != "X") and (self.board[spot] != "O"):
-                self.board[spot] = self.hum
+                self.board[spot] = self.player2
             else:
                 print "Square has been selected before, select a valid square"
                 spot = None
@@ -44,11 +44,11 @@ class Game:
     while spot is None:
       if self.board[4] == "4":
         spot = 4
-        self.board[spot] = self.com
+        self.board[spot] = self.player1
       else:
-        spot = self.get_best_move(self.board, self.com)
+        spot = self.get_best_move(self.board, self.player1)
         if self.board[spot] != "X" and self.board[spot] != "O":
-          self.board[spot] = self.com
+          self.board[spot] = self.player1
         else:
           spot = None
 
@@ -57,13 +57,13 @@ class Game:
     best_move = None
 
     for avail in available_spaces:
-      board[int(avail)] = self.com
+      board[int(avail)] = self.player1
       if self.game_is_over(board):
         best_move = int(avail)
         board[int(avail)] = avail
         return best_move
       else:
-        board[int(avail)] = self.hum
+        board[int(avail)] = self.player2
         if self.game_is_over(board):
           best_move = int(avail)
           board[int(avail)] = avail

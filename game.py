@@ -3,6 +3,7 @@ class Game:
     self.board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
     self.player1 = "\033[91mX\033[0m" # 1st player's marker
     self.player2 = "\033[92mO\033[0m" # 2nd player's marker
+    self.endMsg = ""
 
   def start_game(self):
     # start by printing the board
@@ -10,20 +11,18 @@ class Game:
         (self.board[0], self.board[1], self.board[2],
              self.board[3], self.board[4], self.board[5],
              self.board[6], self.board[7], self.board[8])
-    print "Enter a number representing the square you want to select:"
     # loop through until the game was won or tied
     while not self.game_is_over(self.board) and not self.tie(self.board):
-      self.get_human_spot()
-      if not self.game_is_over(self.board) and not self.tie(self.board):
-        self.eval_board()
+        print "Enter a number representing the square you want to select:"
+        self.get_human_spot()
+        if not self.game_is_over(self.board) and not self.tie(self.board):
+            self.eval_board()
 
-      print " %s | %s | %s \n===+===+===\n %s | %s | %s \n===+===+===\n %s | %s | %s \n" % \
-          (self.board[0], self.board[1], self.board[2],
-               self.board[3], self.board[4], self.board[5],
-               self.board[6], self.board[7], self.board[8])
-
-    print "Game over"
-
+        print " %s | %s | %s \n===+===+===\n %s | %s | %s \n===+===+===\n %s | %s | %s \n" % \
+            (self.board[0], self.board[1], self.board[2],
+                self.board[3], self.board[4], self.board[5],
+                self.board[6], self.board[7], self.board[8])
+    print self.endMsg
 
   def get_human_spot(self):
     spot = None
@@ -77,21 +76,30 @@ class Game:
       return int(available_spaces[0])
 
   def three_in_a_row(self, *args):
-    return args[0] == args[1] == args[2] == self.player1 or \
-        args[0] == args[1] == args[2] == self.player2
+    if args[0] == args[1] == args[2] == self.player1:
+        self.endMsg = "X wins"
+        return True
+    if args[0] == args[1] == args[2] == self.player2:
+        self.endMsg  = "O wins"
+        return True
+    return False
 
   def game_is_over(self, b):
-    return self.three_in_a_row(b[0], b[1], b[2]) == 1 or \
-        self.three_in_a_row(b[3], b[4], b[5]) == 1 or \
-        self.three_in_a_row(b[6], b[7], b[8]) == 1 or \
-        self.three_in_a_row(b[0], b[3], b[6]) == 1 or \
-        self.three_in_a_row(b[1], b[4], b[7]) == 1 or \
-        self.three_in_a_row(b[2], b[5], b[8]) == 1 or \
-        self.three_in_a_row(b[0], b[4], b[8]) == 1 or \
-        self.three_in_a_row(b[2], b[4], b[6]) == 1
+    return self.three_in_a_row(b[0], b[1], b[2]) or \
+        self.three_in_a_row(b[3], b[4], b[5]) or \
+        self.three_in_a_row(b[6], b[7], b[8]) or \
+        self.three_in_a_row(b[0], b[3], b[6]) or \
+        self.three_in_a_row(b[1], b[4], b[7]) or \
+        self.three_in_a_row(b[2], b[5], b[8]) or \
+        self.three_in_a_row(b[0], b[4], b[8]) or \
+        self.three_in_a_row(b[2], b[4], b[6])
 
   def tie(self, b):
-    return len([s for s in b if s == "X" or s == "O"]) == 9
+    if len([s for s in b if s == self.player1 or s == self.player2]) == 9:
+        self.endMsg  = "It's a tie"
+        return True
+    else:
+        return False
 
 if __name__ == '__main__':
   game = Game()

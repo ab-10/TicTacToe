@@ -1,15 +1,21 @@
 """ Tests the player class
 """
 import unittest
-from context import game
+from context import player
+from context import board
 
 class easyEvalTest(unittest.TestCase):
     """ Tests eval_board() method for player in easy mode
     """
 
+    def setUp(self):
+        player = player.player("X", True, "easy")
+        board = board.board()
+
     # Does not select central square if it's free
     def testCenter(self):
         # to be implemented
+
 
     # Does not select a winning move it has a diferent move
     def testWinning(self):

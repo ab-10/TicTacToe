@@ -9,12 +9,13 @@ class easyEvalTest(unittest.TestCase):
     """
 
     def setUp(self):
-        player = player.player("X", True, "easy")
-        board = board.board()
+        testPlayer = player.player("X", True, "easy")
+        testBoard = board.board()
 
     # Does not select central square if it's free
     def testCenter(self):
-        # to be implemented
+        testBoard.position = ["0", "O", "2", "X", "4", "5", "6", "7", "8"]
+        self.assertFalse(testPlayer.eval_board(testBoard) == "4")
 
 
     # Does not select a winning move it has a diferent move

@@ -12,23 +12,26 @@ class easyEvalTest(unittest.TestCase):
         testPlayer = player.player("X", True, "easy")
         testBoard = board.board()
 
-    # Does not select central square if it's free
+    # Does not select central square if it has a diferent move
     def testCenter(self):
         testBoard.position = ["0", "O", "2", "X", "4", "5", "6", "7", "8"]
         self.assertFalse(testPlayer.eval_board(testBoard) == "4")
 
-
-    # Does not select a winning move it has a diferent move
+    # Does not select a winning move if it has a diferent move
     def testWinning(self):
-        # to be implemented
+        testBoard.position = ["X", "O", "O", "X", "4", "5", "6", "7", "8"]
+        self.assertFalse(testPlayer.eval_board(testBoard) == "6")
 
-    # Does not block oponents winning move if has a diferent move
+    # Does not block oponents winning move if it has a diferent move
     def testBlock(self):
-        # to be implemented
+        testBoard.position = ["O", "X", "X", "O", "4", "5", "6", "7", "8"]
+        self.assertFalse(testPlayer.eval_board(testBoard) == "6")
 
     # Selects the only move
     def testOnly(self):
-        # to be implemented
+        testBoard.position = ["X", "O", "X", "X", "4", "O", "O", "X", "O"]
+        self.assertTrue(testPlayer.eval_board(testBoard) == "4")
+
 
 class mediumEvalTest(unittest.TestCase):
     """ Tests eval_board() method for player in medium difficulty

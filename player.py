@@ -1,5 +1,5 @@
 class player:
-    def __init__(marker, isComputer, difficulty=None):
+    def __init__(self, marker, isComputer, difficulty=None):
         self.marker = marker
         self.isComputer = isComputer
         self.difficulty = difficulty

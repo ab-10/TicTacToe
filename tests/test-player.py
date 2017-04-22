@@ -110,3 +110,6 @@ class hardEvalTest(unittest.TestCase):
     def testOnly(self):
         testBoard.position = ["X", "O", "X", "X", "4", "O", "O", "X", "O"]
         self.assertTrue(testPlayer.eval_board(testBoard) == "4")
+
+if __name__ == '__main__':
+    unittest.main()

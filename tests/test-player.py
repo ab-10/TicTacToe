@@ -5,6 +5,17 @@ import unittest
 from context import player
 from context import board
 
+class nonComputerEvalTest(unittest.TestCase):
+    """ tests eval_board() for non computer players
+    """
+    def setUp(self):
+        testPlayer = player.player("X", False)
+        testBoard = board.board()
+
+    def testError(self):
+        with self.assertRaises(AttributeError):
+            testPlayer.eval_board(testBoard)
+
 class easyEvalTest(unittest.TestCase):
     """ Tests eval_board() method for player in easy mode
     """

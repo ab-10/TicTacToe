@@ -10,7 +10,8 @@ class nonComputerEvalTest(unittest.TestCase):
     """
     def setUp(self):
         testPlayer = player.player("X", False)
-        testBoard = board.board()
+        testOpponent = player.player("O", False)
+        testBoard = board.board(testPlayer, testOpponent)
 
     def testError(self):
         with self.assertRaises(AttributeError):
@@ -22,7 +23,8 @@ class easyEvalTest(unittest.TestCase):
 
     def setUp(self):
         testPlayer = player.player("X", True, "easy")
-        testBoard = board.board()
+        testOpponent = player.player("O", False)
+        testBoard = board.board(testPlayer, testOpponent)
 
     # Does not select central square if it has a diferent move
     def testCenter(self):
@@ -51,7 +53,8 @@ class mediumEvalTest(unittest.TestCase):
 
     def setUp(self):
         testPlayer = player.player("X", False, "medium")
-        testBoard = board.board()
+        testOpponent = player.player("O", False)
+        testBoard = board.board(testPlayer, testOpponent)
 
     # Selects the central square if it's free
     def testCenter(self):
@@ -84,7 +87,8 @@ class hardEvalTest(unittest.TestCase):
 
     def setUp(self):
         testPlayer = player.player("X", False, "hard")
-        testBoard = board.board()
+        testOpponent = player.player("O", False)
+        testBoard = board.board(testPlayer, testOpponent)
 
     # Selects the central square if it's free
     def testCenter(self):

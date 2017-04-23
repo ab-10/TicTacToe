@@ -6,4 +6,4 @@ class board:
         """ Records move of a player to board
         """
 
-        self.position[int(spot)] = player.marker
+        self.position[spot] = player.marker
